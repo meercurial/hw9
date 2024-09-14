@@ -34,12 +34,19 @@ function Clock() {
         setShow(false)
     }
 
-    const stringTime = date.toLocaleTimeString() || <br/> // часы24:минуты:секунды (01:02:03)/(23:02:03)/(24:00:00)/(00:00:01) // пишут студенты
-    const stringDate = date.toLocaleDateString() || <br/> // день.месяц.год (01.02.2022) // пишут студенты, варианты 01.02.0123/01.02.-123/01.02.12345 не рассматриваем
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const stringTime = `${hours}:${minutes}:${seconds}`; // Формат времени HH:MM:SS
 
-    // день недели на английском, месяц на английском (https://learn.javascript.ru/intl#intl-datetimeformat)
-    const stringDay = date.toLocaleString('en-US', {weekday: 'long'}) || <br/> // пишут студенты
-    const stringMonth = date.toLocaleString('en-US', {month: 'long'}) || <br/> // пишут студенты
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
+    const year = date.getFullYear();
+    const stringDate = `${day}.${month}.${year}`; // Формат даты DD.MM.YYYY
+
+    const stringDay = date.toLocaleString('en-US', { weekday: 'long' }); // День недели на английском
+    const stringMonth = date.toLocaleString('en-US', { month: 'long' }); // Месяц на английском
+
 
     return (
         <div className={s.clock}>
